@@ -1,5 +1,8 @@
 ## Change Log
 
+## v0.0.5
+- [feat]: Added maxWidth to the image viewer
+
 ## v0.0.4
 - [feat]: Replaced custom code with OVIdViewer component
 

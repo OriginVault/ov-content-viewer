@@ -131,7 +131,7 @@ const OVContentViewer = ({ isDarkMode, did, src, size = "md", title, render, ren
           alt={alt} 
           onMouseEnter={handleMouseEnter} 
           onMouseLeave={handleMouseLeave}
-          style={{ height: isMobile ? "90%" : "90vh", objectFit: "contain", position: "relative", zIndex: isFullScreen ? 1000 : 0}}
+          style={{ height: isMobile ? "90%" : "90vh", maxWidth: "90vw", objectFit: "contain", position: "relative", zIndex: isFullScreen ? 1000 : 0}}
         />   
         <Box
           sx={{
