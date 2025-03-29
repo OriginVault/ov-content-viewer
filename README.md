@@ -3,82 +3,101 @@
 </div>
 <br />
 
-# 🚀 `@originvault/ov-id-viewer`
-**Decentralized Identity Viewer for OriginVault**
+# @originvault/ov-content-viewer🪟
 
-`@originvault/ov-id-viewer` is a React component library designed to display and manage decentralized identities (DIDs) and verifiable credentials (VCs) using the `@originvault/ov-id-sdk`. It provides a user-friendly interface for interacting with DIDs and VCs, making it easier to integrate decentralized identity features into your web applications.
+OVContentViewer is a React component designed to display content in a versatile viewer. It supports full-screen mode, hover effects, and customizable rendering of resources. This component is particularly useful for displaying images and other media types in a user-friendly interface.
 
-🔹 Features
+## Features
 
-- ✅ Display DIDs and associated metadata
-- ✅ View and verify Verifiable Credentials
-- ✅ Seamless integration with `@originvault/ov-id-sdk` for DID management
-- ✅ User-friendly UI components for decentralized identity operations
-- ✅ Customizable and extendable for various use cases
+- Full-screen toggle functionality
+- Hoverable icons for additional actions
+- Customizable rendering of content
+- Support for dark mode
+- Responsive design for mobile devices
 
----
+## Installation
 
-## 📦 Installation
-```bash
-npm install @originvault/ov-id-viewer
-```
+To use the OVContentViewer component in your project, follow these steps:
 
----
+1. **Install Dependencies**: Make sure you have React and Material-UI installed in your project. If you haven't installed them yet, you can do so using npm or yarn:
 
-## 🚀 Quick Start
+   ```bash
+   npm install @mui/material @mui/icons-material
+   ```
 
-### **1️⃣ Integrate the Viewer in Your Application**
-```typescript
+   or
+
+   ```bash
+   yarn add @mui/material @mui/icons-material
+   ```
+
+2. **Add the Component**: Import the `OVContentViewer` component into your desired file:
+
+   ```typescript
+   import { OVContentViewer } from '@originvault/ov-content-viewer';
+   ```
+
+## Usage
+
+Here’s a basic example of how to use the `OVContentViewer` component:
+
+````typescript
 import React from 'react';
-import { OVIdViewer } from '@originvault/ov-id-viewer';
+import { OVContentViewer } from '@originvault/ov-content-viewer';
 
 const App = () => {
   return (
-    <div>
-      <h1>Decentralized Identity Viewer</h1>
-      <OVIdViewer />
-    </div>
+    <OVContentViewer
+      did="your-did-here"
+      src="your-image-url-here"
+      title="Your Title"
+      isDarkMode={false}
+      hideOriginInfoIcon={false}
+      type="image/png"
+      alt="Description of the content"
+      isFullScreen={false}
+      setIsFullScreen={(isFullScreen) => console.log(isFullScreen)}
+    />
   );
 };
 
 export default App;
-```
+````
 
----
+## Props
 
-### **2️⃣ Display DIDs and Verifiable Credentials**
-The `OVIdViewer` component automatically fetches and displays DIDs and VCs using the `@originvault/ov-id-sdk`. Ensure the SDK is properly configured in your application.
+The `OVContentViewer` component accepts the following props:
 
----
+| Prop                     | Type                          | Description                                                                 |
+|--------------------------|-------------------------------|-----------------------------------------------------------------------------|
+| `did`                    | `string`                      | The decentralized identifier for the content.                             |
+| `size`                   | `"sm" | "md" | "lg"`         | The size of the content viewer. Default is "md".                          |
+| `title`                  | `string`                      | The title of the content viewer.                                           |
+| `render`                 | `(data: any) => React.ReactNode` | Custom render function for the content.                                   |
+| `renderProps`            | `{ title?: string; onClose: () => void; validatedAt: Date | null; }` | Props for the custom render function.                                     |
+| `resourceTypes`          | `string[]`                   | Array of resource types to be rendered.                                   |
+| `resourceRenderer`       | `(resource: any) => React.ReactNode` | Custom renderer for resources.                                            |
+| `isFullScreen`           | `boolean`                     | Indicates if the viewer is in full-screen mode.                           |
+| `setIsFullScreen`        | `(isFullScreen: boolean) => void` | Function to toggle full-screen mode.                                      |
+| `isEmbedded`             | `boolean`                     | Indicates if the viewer is embedded.                                      |
+| `isHoverable`            | `boolean`                     | Indicates if hover effects are enabled.                                   |
+| `hideOriginInfoIcon`     | `boolean`                     | Hides the origin info icon if true.                                       |
+| `src`                    | `string`                      | The source URL of the content to be displayed.                            |
+| `type`                   | `string`                      | The MIME type of the content. Default is "image/png".                    |
+| `alt`                    | `string`                      | Alternative text for the content.                                         |
+| `isDarkMode`             | `boolean`                     | Indicates if dark mode is enabled.                                        |
+| `embeddedBackgroundColor` | `string`                      | Background color for embedded mode.                                       |
+| `isMobile`               | `boolean`                     | Indicates if the viewer is being used on a mobile device.                 |
 
-## 🛠 Configuration
-| **Prop** | **Description** |
-|----------|-----------------|
-| `sdkConfig` | Configuration object for `@originvault/ov-id-sdk` integration |
-| `theme` | (Optional) Custom theme settings for the viewer UI |
+## License
 
----
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🏗 Built With
-- **[React](https://reactjs.org/)** → UI library for building user interfaces
-- **[@originvault/ov-id-sdk](https://github.com/originvault/ov-id-sdk)** → SDK for decentralized identity management
-- **[Styled Components](https://styled-components.com/)** → For styling the UI components
+## Contributing
 
----
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-## 📜 License
-`@originvault/ov-id-viewer` is licensed under **MIT**.
+## Acknowledgments
 
----
-
-## 🚀 Next Steps
-- [ ] Add support for additional identity standards
-- [ ] Enhance UI customization options
-- [ ] Implement advanced filtering and search for DIDs and VCs
-
----
-
-### **🌟 Contributors & Feedback**
-If you have suggestions or want to contribute, open an issue or pull request on [GitHub](https://github.com/originvault/ov-id-viewer).
-
-🚀 **Now, `ov-id-viewer` is ready to enhance your decentralized identity applications!**
+- [React](https://reactjs.org/)
+- [Material-UI](https://mui.com/)

@@ -9,7 +9,8 @@
   "files": [
     "dist/**/*",
     "public/**/*",
-    "package.json"
+    "package.json",
+    "README.md"
   ],
   "scripts": {
     "build": "npm run clean && tsc --project tsconfig.build.json",
