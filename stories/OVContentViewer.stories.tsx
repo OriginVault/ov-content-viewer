@@ -20,6 +20,7 @@ Default.args = {
   isEmbedded: false,
   isHoverable: true,
   isDarkMode: true,
+  isMobile: false,
   hideOriginInfoIcon: false,
   setIsFullScreen: () => {},
   src: "../viewable.jpg",

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, CircularProgress, IconButton, Popover } from "@mui/material"
 import { Close, OpenInFull } from "@mui/icons-material"
-import DIDForm from "./DIDForm";
+import { OVIdViewer } from "@originvault/ov-id-sdk";
 
 interface OVContentViewerProps {
   did: string;
@@ -88,7 +88,7 @@ const OVContentViewer = ({ isDarkMode, did, src, size = "md", title, render, ren
 
   const hideInfoIcon = hideOriginInfoIcon || !did;
 
-  const embeddedBGColor = embeddedBackgroundColor  || (isDarkMode ? "white" : "black");
+  const embeddedBGColor = embeddedBackgroundColor  || (isDarkMode ? "black" : "white");
 
   return (
     <Box 
@@ -131,7 +131,7 @@ const OVContentViewer = ({ isDarkMode, did, src, size = "md", title, render, ren
           alt={alt} 
           onMouseEnter={handleMouseEnter} 
           onMouseLeave={handleMouseLeave}
-          style={{ height: "90vh", objectFit: "contain", position: "relative", zIndex: isFullScreen ? 1000 : 0}}
+          style={{ height: isMobile ? "90%" : "90vh", objectFit: "contain", position: "relative", zIndex: isFullScreen ? 1000 : 0}}
         />   
         <Box
           sx={{
@@ -209,14 +209,7 @@ const OVContentViewer = ({ isDarkMode, did, src, size = "md", title, render, ren
           }}
         >
           {render ? render({ data, renderProps }) : 
-            <DIDForm 
-              data={data} 
-              title={title} 
-              onClose={handleClose} 
-              validatedAt={validatedAt} 
-              resourceTypes={resourceTypes}
-              resourceRenderer={resourceRenderer}
-            />
+            <OVIdViewer did={did} />
           }
         </Popover>
       </Box>

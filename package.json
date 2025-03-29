@@ -1,7 +1,7 @@
 {
   "name": "@originvault/ov-content-viewer",
   "did": "did:cheqd:mainnet:dd7b35bd-d528-5add-9447-bcef7f47276b",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "organization": "originvault",
   "description": "A Typescript, React-based UI library for fetching and viewing cheqd DIDs",
   "main": "./dist/src/index.js",
@@ -9,7 +9,8 @@
   "files": [
     "dist/**/*",
     "public/**/*",
-    "package.json"
+    "package.json",
+    "README.md"
   ],
   "scripts": {
     "build": "npm run clean && tsc --project tsconfig.build.json",
@@ -46,6 +47,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.7",
+    "@originvault/ov-id-viewer": "^0.0.3",
     "@rjsf/core": "^5.24.7",
     "@rjsf/mui": "^5.24.7",
     "@rjsf/validator-ajv8": "^5.24.7",
