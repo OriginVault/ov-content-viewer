@@ -1,5 +1,8 @@
 ## Change Log
 
+## v0.0.4
+- [feat]: Replaced custom code with OVIdViewer component
+
 ## v0.0.3
 - [fix]: incorrect import
 

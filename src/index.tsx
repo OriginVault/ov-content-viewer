@@ -177,41 +177,11 @@ const OVContentViewer = ({ isDarkMode, did, src, size = "md", title, render, ren
             {open && data === null ? 
               <CircularProgress size={size === "sm" ? 24 : size === "md" ? 36 : 48} style={{ color: '#f2d087' }}/>
             : (
-              <img
-                title="Origin Information"
-                alt="Origin Information"
-                src="https://gray-objective-tiglon-784.mypinata.cloud/ipfs/Qma7EjPPPfomzEKkYcJa2ctEFPUhHaMwiojTR1wTQPg2x8"
-                style={{ width: size === "sm" ? "24px" : size === "md" ? "36px" : "48px", cursor: "pointer" }}
-              />
+              <OVIdViewer did={did} title={title} />
             )}
             
           </IconButton>
         </Box>}
-        <Popover
-          id={id}
-          open={open && data !== null}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          slotProps={{
-            paper: {
-              style: {
-                backgroundColor: '#f2d087',
-              },
-            },
-          }}
-        >
-          {render ? render({ data, renderProps }) : 
-            <OVIdViewer did={did} />
-          }
-        </Popover>
       </Box>
     </Box>
   );
