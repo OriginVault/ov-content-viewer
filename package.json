@@ -1,7 +1,7 @@
 {
   "name": "@originvault/ov-content-viewer",
   "did": "did:cheqd:mainnet:dd7b35bd-d528-5add-9447-bcef7f47276b",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "organization": "originvault",
   "description": "A Typescript, React-based UI library for fetching and viewing cheqd DIDs",
   "main": "./dist/src/index.js",

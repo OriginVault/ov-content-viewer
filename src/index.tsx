@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, CircularProgress, IconButton, Popover } from "@mui/material"
 import { Close, OpenInFull } from "@mui/icons-material"
-import { OVIdViewer } from "@originvault/ov-id-sdk";
+import { OVIdViewer } from "@originvault/ov-id-viewer";
 
 interface OVContentViewerProps {
   did: string;
