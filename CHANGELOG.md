@@ -1,5 +1,8 @@
 ## Change Log
 
+## v0.0.7
+- [fix]: Added a message to the Content Viewer if no content is registered for the resource
+
 ## v0.0.6
 - [feat]: Adds Content Viewer component
 

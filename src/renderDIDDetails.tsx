@@ -26,7 +26,7 @@ export const renderDIDDetails = ({ data, renderProps }: any) => {
       const resources = data?.didDocumentMetadata?.linkedResourceMetadata || [];
 
       const contentResources = resources.filter((r: any) => r.resourceType === "Content-Registration-Record");
-      if (!contentResources.length) return;
+      if (!contentResources.length) return <Typography p={2}>No content registered for this resource.</Typography>;
 
       const latest = contentResources.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())[0];
       try {
