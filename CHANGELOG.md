@@ -1,5 +1,8 @@
 ## Change Log
 
+## v0.0.8
+- [feat]: Adjust the bundle to see if it will properly build
+
 ## v0.0.7
 - [fix]: Added a message to the Content Viewer if no content is registered for the resource
 

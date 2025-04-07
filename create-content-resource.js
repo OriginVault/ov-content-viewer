@@ -32,15 +32,15 @@ const registrationRecord = {
       "verifiedIdentities": [
         {
           "type": "cawg.social_media",
-          "name": "Jane Doe",
-          "address": "janedoe@example.com",
+          "name": "OriginVault User",
+          "address": "demo@originvault.me",
           "verifiedAt": "2025-04-06T14:59:00.000Z",
           "provider": {
             "id": "google",
             "name": "Google",
             "type": "OAuthProvider"
           },
-          "username": "janedoe123",
+          "username": "demo",
           "method": "OAuth"
         },
         {
@@ -71,7 +71,7 @@ const registrationRecord = {
         {
           "type": "cawg.document_verification",
           "name": "Government ID",
-          "address": "janedoe@example.com",
+          "address": "demo@originvault.me",
           "verifiedAt": "2025-04-06T14:59:30.000Z",
           "provider": {
             "id": "stripe",
@@ -87,7 +87,7 @@ const registrationRecord = {
           "contentHash": "da515579a5b87671f8c4e0842383f9a1af2b022d8378a4e677e9d54d147fa1a3",
           "fileName": "QmPCMvwsnpZWkReAoHnh4xXWPA6xMEJFufrWmE3gjQfFpk.png",
           "username": "demo",
-          "publicPath": "https://demo.originvault.me/embeddable/wage-spoon-flower-birth-barely",
+          "publicPath": "https://demo.originvault.me/embeddable/wear-pepper-wheel-birth-barely",
           "color": "#000000",
           "colorCode": "fd1628-384919-67fd9e-3f78b9-488968-b4274e-b139b9-8e973e-eb887b-de33fe-587c36-a2fdb7-1167f0-c15cd0-d7ce49-828ff4-3684c5-700ef0-65a3f5-dfa139-3d262d-841b98-08ffe7-263795",
           "createdAt": "2025-04-06T14:59:18.274Z",
