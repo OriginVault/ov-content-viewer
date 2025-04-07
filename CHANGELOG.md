@@ -1,5 +1,8 @@
 ## Change Log
 
+## v0.0.9
+- [feat]: Added a close button to the DID details popover
+
 ## v0.0.8
 - [feat]: Adjust the bundle to see if it will properly build
 

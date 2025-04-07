@@ -1,5 +1,5 @@
-import { Box, Typography, Divider, Avatar, Chip, Tooltip, Popper, IconButton, Link } from "@mui/material";
-import { CalendarToday, AccountBalanceWallet, Fingerprint, InfoOutlined, CopyAll, Check, OpenInNew } from "@mui/icons-material";
+import { Box, Typography, Divider, Avatar, Chip, Tooltip, Popper, IconButton, Link, Button } from "@mui/material";
+import { CalendarToday, AccountBalanceWallet, Fingerprint, InfoOutlined, CopyAll, Check, OpenInNew, Close } from "@mui/icons-material";
 import { SocialIcon } from 'react-social-icons';
 import React, { useEffect, useState } from "react";
 import ContentFingerprints from "./ContentFingerprint";
@@ -13,7 +13,7 @@ import ColorBarcode from "./ColorBarcode";
 //   website: website;
 // }
 
-export const renderDIDDetails = ({ data, renderProps }: any) => {
+export const renderDIDDetails = ({ data, renderProps, handleClose }: any) => {
   const { isDarkMode } = renderProps;
   const [contentResource, setContentResource] = useState<any>(null);
   const [verifiedIdentities, setVerifiedIdentities] = useState<any[]>([]);
@@ -69,7 +69,26 @@ export const renderDIDDetails = ({ data, renderProps }: any) => {
       color: isDarkMode ? "#add4ef" : "#1c2a35",
       borderRadius: 2,
       boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+      position: "relative",
     }}>
+      {/* Close Button */}
+      <IconButton 
+        onClick={handleClose}
+        size="small"
+        sx={{
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          color: isDarkMode ? "#add4ef" : "#1c2a35",
+          backgroundColor: isDarkMode ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)",
+          '&:hover': {
+            backgroundColor: isDarkMode ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.4)",
+          }
+        }}
+        aria-label="close"
+      >
+        <Close fontSize="small" />
+      </IconButton>
 
       {/* CONTENT PREVIEW */}
       <Box my={2}>
