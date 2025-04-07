@@ -1,5 +1,8 @@
 ## Change Log
 
+## v0.0.6
+- [feat]: Adds Content Viewer component
+
 ## v0.0.5
 - [feat]: Added maxWidth to the image viewer
 

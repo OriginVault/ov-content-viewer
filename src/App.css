@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Thiccboi'; /* Replace with the font's name */
+  src: url('/THICCCBOI-Medium.ttf') format('truetype');
+  font-weight: normal; /* Define weight (normal, bold, etc.) */
+  font-style: normal;  /* Define style (normal, italic, etc.) */
+}
+
+body, div {
+  font-family: "Thiccboi", sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Thiccboi", sans-serif !important;;
+  font-weight: 700; /* Bold weight for headings */
+}
+
+li,
+span,
+p {
+  font-family: "Thiccboi", sans-serif !important;;
+  font-weight: 400; /* Regular weight for paragraphs */
+}

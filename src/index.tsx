@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Box, CircularProgress, IconButton, Popover } from "@mui/material"
-import { Close, OpenInFull } from "@mui/icons-material"
+import {
+  Box,
+  IconButton,
+} from "@mui/material";
+import { Close, OpenInFull, OpenInNew } from "@mui/icons-material";
 import { OVIdViewer } from "@originvault/ov-id-viewer";
+import { renderDIDDetails } from "./renderDIDDetails";
+import './App.css';
 
 interface OVContentViewerProps {
   did: string;
   size?: "sm" | "md" | "lg";
   title?: string;
-  render?: (data: any) => React.ReactNode;
   renderProps?: {
     title?: string;
     onClose: () => void;
@@ -26,89 +30,74 @@ interface OVContentViewerProps {
   isDarkMode: boolean;
   embeddedBackgroundColor?: string;
   isMobile?: boolean;
+  height?: string;
+  width?: string;
+  showByDefault?: boolean;
+  iconSize?: "sm" | "md" | "lg";
 }
 
-const OVContentViewer = ({ isDarkMode, did, src, size = "md", title, render, renderProps, resourceTypes, resourceRenderer, isFullScreen = false, setIsFullScreen, isEmbedded = false, isHoverable = true, hideOriginInfoIcon = false, type = "image/png", alt = "Content", embeddedBackgroundColor, isMobile = false }: OVContentViewerProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+const OVContentViewer = ({
+  isDarkMode,
+  did,
+  src,
+  iconSize = "md",
+  title,
+  renderProps,
+  resourceTypes,
+  resourceRenderer,
+  isFullScreen = false,
+  setIsFullScreen,
+  isEmbedded = false,
+  isHoverable = true,
+  hideOriginInfoIcon = false,
+  type = "image/png",
+  alt = "Content",
+  embeddedBackgroundColor,
+  isMobile = false,
+  height = "fit-content",
+  width = "fit-content",
+  showByDefault = false
+}: OVContentViewerProps) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [data, setData] = useState<any>(null);
-  const [validatedAt, setValidatedAt] = useState<Date | null>(null);
 
-  const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-    const url = `https://resolver.cheqd.net/1.0/identifiers/${did}`;
-    try {
-      const response = await fetch(url);
-      setValidatedAt(new Date());
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      console.error(error);
-      setData(null);
-    }
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-
-  const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
-    if (isHoverable) {
-      setIsHovering(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-  };
-
-  const handleFullScreenToggle = () => {
-    if (setIsFullScreen) {
-      setIsFullScreen(!isFullScreen);
-    }
-  };
+  const handleMouseEnter = () => isHoverable && setIsHovering(true);
+  const handleMouseLeave = () => setIsHovering(false);
+  const handleFullScreenToggle = () => setIsFullScreen?.(!isFullScreen);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (isFullScreen && !isEmbedded) {
-        if (event.key === "Escape") {
-          handleFullScreenToggle();
-        }
+    const onEsc = (event: KeyboardEvent) => {
+      if (isFullScreen && !isEmbedded && event.key === "Escape") {
+        handleFullScreenToggle();
       }
     };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
   }, [isFullScreen]);
 
-  const hideInfoIcon = hideOriginInfoIcon || !did;
-
-  const embeddedBGColor = embeddedBackgroundColor  || (isDarkMode ? "black" : "white");
+  const embeddedBGColor = embeddedBackgroundColor || "transparent";
+  const bgColor = isDarkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.7)";
+  const styles = {
+    position: isFullScreen ? "fixed" : "relative",
+    top: 0,
+    left: 0,
+    zIndex: isFullScreen ? 1000 : 0,
+    width: isFullScreen ? "100%" : width,
+    height: isFullScreen ? "100%" : height,
+    maxHeight: isFullScreen ? "100vh" : height,
+    maxWidth: isFullScreen ? "100vw" : width,
+    padding: isEmbedded || isFullScreen ? "0" : "16px",
+    backgroundColor: isEmbedded ? embeddedBGColor : bgColor,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    objectFit: "contain"
+  };
 
   return (
-    <Box 
-      sx={{ 
-        position: isFullScreen ? "fixed" : "relative", 
-        top: 0,
-        left: 0,
-        zIndex: isFullScreen ? 1000 : 0,
-        width: "100%",
-        height: "100%",
-        padding: isEmbedded || isFullScreen ? "0" : "16px",
-        backgroundColor: isEmbedded ? embeddedBGColor : "transparent",
-        display: "flex", 
-        flexDirection: "column", 
-        alignItems: "center", 
-        justifyContent: "center", 
-      }}
-    >
-       {isFullScreen && (
-        <Box 
+    <Box sx={styles}>
+      {isFullScreen && (
+        <Box
           onClick={handleFullScreenToggle}
           sx={{
             position: "fixed",
@@ -116,78 +105,92 @@ const OVContentViewer = ({ isDarkMode, did, src, size = "md", title, render, ren
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: isDarkMode ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.7)",
+            backgroundColor: isEmbedded ? embeddedBGColor : 'transparent',
             zIndex: 999,
           }}
         />
       )}
-      <Box sx={{ 
-        width: "fit-content", 
-        height: "fit-content",
-        position: "relative"
+      <Box sx={{
+        width,
+        height,
+        position: "relative",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
       }}>
-        <img 
-          src={src} 
-          alt={alt} 
-          onMouseEnter={handleMouseEnter} 
+        <img
+          src={src}
+          alt={alt}
+          onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          style={{ height: isMobile ? "90%" : "90vh", maxWidth: "90vw", objectFit: "contain", position: "relative", zIndex: isFullScreen ? 1000 : 0}}
-        />   
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            zIndex: isFullScreen ? 1000 : 0,
+          style={{
+            maxWidth: isFullScreen ? "100vw" : width,
+            maxHeight: isFullScreen ? "100vh" : height,
+            height: "auto",
+            objectFit: "contain",
+            position: "relative",
+            zIndex: isFullScreen ? 1000 : 0
           }}
-        >
-          <IconButton
-            aria-describedby={id}
-            onClick={handleFullScreenToggle}
-            sx={{
-              opacity: isHoverable && isHovering || isMobile ? 0.1 : 0,
-              transition: "opacity 0.3s ease",
-              '&:hover': {
-                opacity: isHoverable ? 1 : 0,
-              },
-            }}
-          >
-            {isFullScreen ? <Close sx={{ color: isDarkMode ? "#f2d087" : "#000000" }} /> : <OpenInFull sx={{ color: isDarkMode ? "#f2d087" : "#000000" }} />}
-          </IconButton>
+        />
+        <Box sx={{
+          position: isFullScreen ? "fixed" : "absolute",
+          top: 0,
+          right: 0,
+          zIndex: isFullScreen ? 1000 : 0,
+        }}>
+          {isEmbedded ? (
+            <IconButton
+              onClick={() => window.open(src, "_blank")}
+              sx={{
+                opacity: isHoverable && (isHovering || isMobile) ? 0.1 : 0,
+                transition: "opacity 0.3s ease",
+                '&:hover': { opacity: isHoverable ? 1 : 0 }
+              }}
+            >
+              <OpenInNew sx={{ color: isDarkMode ? "#f2d087" : "#000" }} />
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={handleFullScreenToggle}
+              sx={{
+                opacity: isHoverable && (isHovering || isMobile) ? 0.1 : 0,
+                transition: "opacity 0.3s ease",
+                '&:hover': { opacity: isHoverable ? 1 : 0 }
+              }}
+            >
+              {isFullScreen
+                ? <Close sx={{ color: isDarkMode ? "#f2d087" : "#000" }} />
+                : <OpenInFull sx={{ color: isDarkMode ? "#f2d087" : "#000" }} />}
+            </IconButton>
+          )}
         </Box>
-        {!hideInfoIcon && <Box
-          sx={{
-            position: "absolute",
-            bottom: 4,
-            right: 0,
-            zIndex: isFullScreen ? 1000 : 0,
-          }}
-        >
-          <IconButton
-            aria-describedby={id}
-            onClick={handleClick}
+        {!hideOriginInfoIcon && (
+          <Box
             sx={{
-              opacity: isHoverable && isHovering || isMobile ? 0.1 : 0,
-              transition: "opacity 0.3s ease",
-              '&:hover': {
-                opacity: isHoverable ? 1 : 0,
-              },
+              position: isFullScreen ? "fixed" : "absolute",
+              bottom: 4,
+              right: 0,
+              zIndex: isFullScreen ? 1000 : 0,
             }}
           >
-            {open && data === null ? 
-              <CircularProgress size={size === "sm" ? 24 : size === "md" ? 36 : 48} style={{ color: '#f2d087' }}/>
-            : (
-              <OVIdViewer did={did} title={title} />
-            )}
-            
-          </IconButton>
-        </Box>}
+            <OVIdViewer
+              did={did}
+              title={title}
+              render={renderDIDDetails}
+              renderProps={{...renderProps, isDarkMode }}
+              resourceTypes={resourceTypes}
+              resourceRenderer={resourceRenderer}
+              isHoverable={isHoverable}
+              showByDefault={showByDefault}
+              size={iconSize}
+              isHovering={isHovering}
+              isMobile={isMobile}
+            />
+          </Box>
+        )}
       </Box>
     </Box>
   );
 };
 
 export { OVContentViewer, type OVContentViewerProps };
-
-
-
